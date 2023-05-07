@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository //Optional
-public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
+public interface AppUserRepository extends CrudRepository<AppUser, String> {
 
     // select * from app_user where username = 1?
     // Optional<AppUser> findByUsername(String username);

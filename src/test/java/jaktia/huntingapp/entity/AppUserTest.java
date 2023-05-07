@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.AccessDeniedException;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +18,7 @@ public class AppUserTest {
     @BeforeEach
     public void setup(){
         person = new Person("John", "Doe", "johndoe@test.se", "070 - 1234 123", "Växjö");
-        appUser = new AppUser(1,"John", "password", Role.ROLE_ADMIN, true);
+        appUser = new AppUser("John", "password", Role.ROLE_ADMIN, true);
     }
         @Test
         public void test_addPerson () throws AccessDeniedException {

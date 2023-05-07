@@ -20,13 +20,10 @@ import java.time.LocalDate;
 @Data
 @ToString(exclude = "password")
 @NoArgsConstructor
-@AllArgsConstructor
 
 @Entity //Map the class to database
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false, length = 18)
@@ -42,8 +39,7 @@ public class AppUser {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    public AppUser(int id, String username, String password, Role role, boolean active) {
-        this.id = id;
+    public AppUser(String username, String password, Role role, boolean active) {
         this.username = username;
         this.password = password;
         this.role = role;
