@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.*;
 
 @Data
@@ -22,18 +23,17 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
     @Column(unique = true, nullable = false)
+    @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Invalid email format")
     private String email;
     @Column(unique = true)
     private String phoneNumber;
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-    private AppUser userId;
     @ManyToMany
     @JoinTable(name = "contact_person",
             joinColumns = @JoinColumn(name = "contact_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id")
     )
     private Set<Contact> contact = new HashSet<>();
-    @Column
+
     private String address;
     @OneToMany (mappedBy = "assignee")
     private List<Task> taskList = new ArrayList<>();
@@ -46,4 +46,43 @@ public class Person {
 
     @OneToMany(mappedBy = "owner")
     private Set<Dog> dogs = new HashSet<>();
+
+    public Person(int id, String firstName, String lastName, String email, String phoneNumber, String address) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public Person(String firstName, String lastName, String email, String phoneNumber, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public void addTask(Task task) {
+        this.taskList.add(task);
+        task.setAssignee(this);
+    }
+    public void removeTask(Task task) {
+        task.setAssignee(null);
+        taskList.remove(task);
+    }
+    public void addDog(Dog dog) {
+        if (dogs == null) {
+            dogs = new HashSet<>();
+        }
+        dogs.add(dog);
+        dog.setOwner(this);
+    }
+    public void removeDog(Dog dog) {
+        dog.setOwner(null);
+        dogs.remove(dog);
+    }
+
+
 }

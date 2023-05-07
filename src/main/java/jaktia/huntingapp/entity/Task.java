@@ -15,13 +15,11 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column(nullable = false)
     private String title;
-    @Column
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
     private Person assignee;
-    @Column
     private boolean done;
 
 }

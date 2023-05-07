@@ -1,16 +1,15 @@
 package jaktia.huntingapp.entity;
 
 import jaktia.huntingapp.Enum.Responsibility;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Contact {
@@ -22,8 +21,9 @@ public class Contact {
     @Column(unique = true, nullable = false)
     private String phoneNumber;
     @Column(unique = true, nullable = false)
+    @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Invalid email format")
     private String email;
-    @Column
+
     private Responsibility responsibility;
     @ManyToMany
     @JoinTable(name = "contact_person",
@@ -31,4 +31,12 @@ public class Contact {
             inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private Set<Person> caller = new HashSet<>();
+
+    public Contact(int id, String name, String phoneNumber, String email, Responsibility responsibility) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.responsibility = responsibility;
+    }
 }

@@ -15,15 +15,14 @@ public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private String breed;
-    @Column
+    @Column(name = "height_cm")
     private float height;
-    @Column
+    @Column(name = "weight_kg")
     private float weight;
-    @Column
     private boolean active;
     @ManyToOne(cascade = CascadeType.ALL)
     private Person owner;

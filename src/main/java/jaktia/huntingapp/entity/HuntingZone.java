@@ -16,17 +16,11 @@ import java.util.UUID;
 public class HuntingZone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Integer id;
     @Column(unique = true)
     private String name;
-    @Column
     private String description;
-    @Column
     private String location;
     @Column(nullable = false)
-    private int area;
-    @Column(nullable = false)
     private String terrain;
-    @Column
-    private LocalDate season;
 }
