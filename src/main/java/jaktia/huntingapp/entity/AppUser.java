@@ -4,14 +4,12 @@ import jaktia.huntingapp.Enum.Role;
 import jaktia.huntingapp.exceptions.DataDuplicateException;
 import jaktia.huntingapp.exceptions.DataNotFoundException;
 import jaktia.huntingapp.exceptions.NotValidPasswordException;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
@@ -27,7 +25,6 @@ public class AppUser {
     @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false, length = 18)
-    @Size(min = 6, max = 18, message = "Password size must be between 6 and 18 characters")
     private String password;
 
     private Role role;

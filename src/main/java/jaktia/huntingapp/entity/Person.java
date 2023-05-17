@@ -23,7 +23,6 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
     @Column(unique = true, nullable = false)
-    @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Invalid email format")
     private String email;
     @Column(unique = true)
     private String phoneNumber;

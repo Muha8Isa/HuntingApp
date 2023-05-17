@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +20,6 @@ public class Contact {
     @Column(unique = true, nullable = false)
     private String phoneNumber;
     @Column(unique = true, nullable = false)
-    @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Invalid email format")
     private String email;
 
     private Responsibility responsibility;
