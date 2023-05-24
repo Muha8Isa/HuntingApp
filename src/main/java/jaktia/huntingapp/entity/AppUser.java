@@ -22,9 +22,9 @@ import java.time.LocalDate;
 @Entity //Map the class to database
 public class AppUser {
     @Id
-    @Column(unique = true, nullable = false)
+    @Column(updatable = false)
     private String username;
-    @Column(nullable = false, length = 18)
+    @Column(nullable = false)
     private String password;
 
     private Role role;

@@ -1,15 +1,15 @@
 package jaktia.huntingapp.dto;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskDto {
     private int id;
     @NotEmpty(message = "Title is required")

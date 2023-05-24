@@ -1,9 +1,7 @@
 package jaktia.huntingapp.dto;
 
 import jaktia.huntingapp.Enum.Responsibility;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +12,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContactDto {
     private int id;
     @NotEmpty(message = "Contact Name should not be empty")

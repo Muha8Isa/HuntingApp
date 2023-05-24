@@ -22,6 +22,7 @@ public interface AppUserRepository extends CrudRepository<AppUser, String> {
     Optional<AppUser> selectByUsername(@Param("un") String username);
 
     Optional<AppUser> findByRole(Role role);
+    Boolean existsByUsername(String username);
 
     // List<AppUser> findAllByRegDateBetween(LocalDate from, LocalDate to);
 
@@ -34,4 +35,9 @@ public interface AppUserRepository extends CrudRepository<AppUser, String> {
     @Modifying // To modify the database.
     @Query("update AppUser a set a.password = :pwd where a.username = :un")
     void resetPassword(@Param("un") String username, @Param("pwd") String password);
+
+    @Modifying
+    @Query("update AppUser a set a.active =:active where a.username = :username")
+    void disableUserByUsername(@Param("username") String username, @Param("active") boolean active);
+
 }

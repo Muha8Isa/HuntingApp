@@ -1,9 +1,7 @@
 package jaktia.huntingapp.dto;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +11,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeamDto {
     private int id;
     @NotEmpty(message = "Team name is required")

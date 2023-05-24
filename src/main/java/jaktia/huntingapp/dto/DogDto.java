@@ -1,9 +1,7 @@
 package jaktia.huntingapp.dto;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +10,8 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class DogDto {
     private int id;
     @NotEmpty(message = "Name is required")

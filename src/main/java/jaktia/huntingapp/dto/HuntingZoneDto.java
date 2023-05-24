@@ -1,14 +1,14 @@
 package jaktia.huntingapp.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class HuntingZoneDto {
     private Integer id;
     @NotEmpty(message = "Name is required")

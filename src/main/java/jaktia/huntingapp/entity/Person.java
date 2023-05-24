@@ -24,7 +24,7 @@ public class Person {
     private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String phoneNumber;
     @ManyToMany
     @JoinTable(name = "contact_person",
@@ -32,7 +32,7 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "person_id")
     )
     private Set<Contact> contact = new HashSet<>();
-
+    @Column(nullable = false)
     private String address;
     @OneToMany (mappedBy = "assignee")
     private List<Task> taskList = new ArrayList<>();

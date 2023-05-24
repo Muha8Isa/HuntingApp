@@ -1,9 +1,7 @@
 package jaktia.huntingapp.dto;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -17,6 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonDto {
     private int id;
     @NotEmpty(message = "FirstName should not empty")
@@ -28,9 +28,11 @@ public class PersonDto {
     @NotEmpty(message = "email is required")
     @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Invalid email format")
     private String email;
+    @NotEmpty
     @Pattern(regexp = "\\d{10}", message = "Phone number must have exactly 10 digits")
     private String phoneNumber;
     private Set<@Valid ContactDto> contact = new HashSet<>();
+    @NotEmpty
     private String address;
     private List<@Valid TaskDto> taskList = new ArrayList<>();
     private Set<@Valid TeamDto> team;

@@ -2,18 +2,19 @@ package jaktia.huntingapp.dto;
 
 
 import jaktia.huntingapp.Enum.Role;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppUserDto {
     @NotEmpty(message = "username should not empty")
     @Size(min = 2, max = 20, message = "username length should be between 2-40")
@@ -26,6 +27,7 @@ public class AppUserDto {
 
     private boolean active;
     private LocalDate regDate;
-    @Valid
+    @NotNull
+    @Valid // @Valid takes the annotations in PersonDto (NotEmpty, size....etc) into consideration.
     private PersonDto person;
 }
