@@ -1,18 +1,17 @@
 package jaktia.huntingapp.dto;
 
 
-import jaktia.huntingapp.Enum.Role;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppUserDto {
@@ -22,12 +21,7 @@ public class AppUserDto {
     @NotEmpty(message = "password should not empty")
     @Size(min = 6, max = 18, message = "password length should be between 6-18")
     private String password;
-    @NotEmpty(message = "Role should not be empty")
-    private Role role;
 
-    private boolean active;
+    private boolean active = true;
     private LocalDate regDate;
-    @NotNull
-    @Valid // @Valid takes the annotations in PersonDto (NotEmpty, size....etc) into consideration.
-    private PersonDto person;
 }

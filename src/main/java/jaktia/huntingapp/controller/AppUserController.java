@@ -19,16 +19,14 @@ public class AppUserController {
     @Autowired
     AppUserService appUserService;
 
-
     //sign-up: request body -- POST
-    @PostMapping("/")
+    @PostMapping("/signup")
     //@RequestMapping(path = "/", method = RequestMethod.POST) //This is an alternative for @PostMapping
     public ResponseEntity<AppUserDto> signup(@RequestBody @Valid AppUserDto dto){
         System.out.println("Username: " + dto.getUsername());
         AppUserDto serviceResult = appUserService.register(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceResult);
     }
-
 
     // /{username}  search: path variable -- GET
     @GetMapping("/{username}")
@@ -38,6 +36,7 @@ public class AppUserController {
 
     // /{username}  disable user: path variable -- PUT
     @PutMapping("/disable")
+
     public ResponseEntity<Void> disableUserByUsername(@RequestParam("username") String username){
         appUserService.disableUserByUsername(username);
         return ResponseEntity.noContent().build();

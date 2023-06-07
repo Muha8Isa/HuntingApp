@@ -57,6 +57,7 @@ public class PersonServiceImpl implements PersonService {
             throw new DataNotFoundException("person not found error");
 
         personRepository.save(modelMapper.map(personDto, Person.class));
+        System.out.println("Person info updated");
     }
 
     @Override

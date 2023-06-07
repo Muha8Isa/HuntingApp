@@ -1,75 +1,82 @@
 package jaktia.huntingapp.entity;
 
 import jaktia.huntingapp.Enum.Role;
-import jaktia.huntingapp.exceptions.DataDuplicateException;
-import jaktia.huntingapp.exceptions.DataNotFoundException;
 import jaktia.huntingapp.exceptions.NotValidPasswordException;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collection;
 
 
 @Data
 @ToString(exclude = "password")
 @NoArgsConstructor
-
-@Entity //Map the class to database
-public class AppUser {
+@Builder
+@Entity //Maps the class to database
+public class AppUser implements UserDetails {
     @Id
-    @Column(updatable = false)
+    @Column(name = "username",updatable = false, nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
-
+    @Enumerated(EnumType.STRING)
     private Role role;
-
-    private boolean active;
+    private boolean active = true;
     @CreationTimestamp // LocalDate.now();
     private LocalDate regDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
-    private Person person;
 
     public AppUser(String username, String password, Role role, boolean active) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.role = role;
         this.active = active;
     }
 
-    public AppUser(String username, String password, Role role, boolean active, LocalDate regDate, Person person) {
+    public AppUser(String username, String password, Role role, boolean active, LocalDate regDate) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.role = role;
         this.active = active;
         this.regDate = regDate;
-        this.person = person;
-    }
-    public void addPerson(Person person, Role role) throws AccessDeniedException {
-        if (role != Role.ROLE_ADMIN) throw new AccessDeniedException("Only Admins can add users!");
-        if(this.person != null){
-            throw new DataDuplicateException("Duplicated data!");
-        }
-        this.person = person;
     }
 
-    public void removePerson(Person person, Role role) throws AccessDeniedException{
-        if (role != Role.ROLE_ADMIN) throw new AccessDeniedException("Only Admins can remove users!");
-        if(this.person == null){
-            throw new DataNotFoundException("Data not found!");
-        }
-        if (this.person == person)
-        this.person = null;
-    }
-
-    public void setPassword(String password) {
-        if(password.length() < 6 || password.length() > 18) throw new NotValidPasswordException("Password length must be between 6 and 18");
+   /* public void setPassword(String password) {
+        if (password.length() < 6 || password.length() > 18)
+            throw new NotValidPasswordException("Password length must be between 6 and 18");
         this.password = password;
+    }*/
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

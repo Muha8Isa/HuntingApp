@@ -40,4 +40,6 @@ public interface AppUserRepository extends CrudRepository<AppUser, String> {
     @Query("update AppUser a set a.active =:active where a.username = :username")
     void disableUserByUsername(@Param("username") String username, @Param("active") boolean active);
 
+    boolean existsByRole(Role role);
+
 }

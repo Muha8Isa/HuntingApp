@@ -16,15 +16,12 @@ import java.util.Set;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "team_id")
     private int id;
     @Column(nullable = false)
     private String name;
     private String description;
-    @ManyToMany
-    @JoinTable(name = "team_person",
-            joinColumns = @JoinColumn(name = "person_id"), ///////
-            inverseJoinColumns = @JoinColumn(name = "team_id")
-    )
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Person> members = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)

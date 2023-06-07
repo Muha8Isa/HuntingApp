@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -34,9 +35,10 @@ public class PersonDto {
     private Set<@Valid ContactDto> contact = new HashSet<>();
     @NotEmpty
     private String address;
-    private List<@Valid TaskDto> taskList = new ArrayList<>();
-    private Set<@Valid TeamDto> team;
-    private Set<@Valid DogDto> dogs = new HashSet<>();
+
+    @NotNull
+    @Valid // @Valid takes the annotations in AppUserDto (NotEmpty, size....etc) into consideration.
+    private AppUserDto appUser;
 
 
 }

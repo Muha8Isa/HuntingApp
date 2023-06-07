@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,12 +21,6 @@ public class Contact {
     private String email;
 
     private Responsibility responsibility;
-    @ManyToMany
-    @JoinTable(name = "contact_person",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "contact_id")
-    )
-    private Set<Person> caller = new HashSet<>();
 
     public Contact(int id, String name, String phoneNumber, String email, Responsibility responsibility) {
         this.id = id;

@@ -24,5 +24,4 @@ public class ContactDto {
     private String email;
     @NotEmpty(message = "Role should not be empty")
     private Responsibility responsibility;
-    private Set<@Valid PersonDto> caller = new HashSet<>();
 }
